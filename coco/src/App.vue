@@ -35,11 +35,6 @@
                            <button @click="clear()">clear</button>  
                        </div>  
             
-                       <div>
-                           <button>all</button>
-                           <button>active</button>
-                           <button>completed</button>
-                       </div>
                   </div>
            </div>
 
@@ -65,16 +60,31 @@ export default {
     clearAll(){
         this.todos=null
     },
+    reInit(){
+      
+      let i = 0
+
+      this.todos.forEach(e=>{
+        e.id=i;
+        i++
+      })
+
+    },
     clear(){
+      
+
       this.todos=this.todos.filter(e=>e.checked==false)
+        this.reInit()
+
     },
     clearx(id){
         let t=this.todos.filter(e=>e.id!=id)
         
-        this.todos = t
-        console.log(this.todos);
-      
-
+         this.todos = t
+        
+          
+       this.reInit()   
+  
     },
     checkAll(e){
         this.todos.forEach(element => {
@@ -95,7 +105,6 @@ export default {
            this.todos[id].checked=false;
        
         }
-        console.log(this.todos);
      },
     addTodo(){
        if (this.body.trim().length===0) {
